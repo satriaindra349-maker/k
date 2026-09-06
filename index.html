@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>tolong maafin aku yah? 🥺</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #ffe6e9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 85%;
+      z-index: 10;
+    }
+
+    img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 15px;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      color: #ff4d6d;
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 25px;
+    }
+
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      position: relative;
+      min-height: 50px;
+    }
+
+    button {
+      padding: 12px 20px;
+      font-size: 15px;
+      font-weight: bold;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      width: 45%;
+    }
+
+    #yesBtn {
+      background-color: #ff4d6d;
+      color: white;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    #yesBtn:hover {
+      background-color: #ff758f;
+      transform: scale(1.05);
+    }
+
+    #noBtn {
+      background-color: #ccc;
+      color: #333;
+      /* Transisi halus saat tombol kabur/berpindah posisi */
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* CSS Animasi Bunga Gugur */
+    .flower {
+      position: absolute;
+      top: -50px;
+      font-size: 24px;
+      user-select: none;
+      pointer-events: none;
+      animation: fall linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(105vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <audio id="bgMusic" src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-love-112189.mp3" preload="auto"></audio>
+
+  <div class="container" id="mainCard">
+    <img id="gif" src="https://media4.giphy.com/media/v1.Y2lkPTZjMDliOTUyY3RuZmo5YWRuZDF4cmluYzBlNmhpNmdraGlsbzJqZnJhZjVqcWx4NiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7AzEXdIb1wyCTWJntb/giphy.gif" alt="Crying meme">
+    <h1 id="title">sayangg aku minta maaf yah... 🥺</h1>
+    <p id="message">jangan marah lagi dong. Nanti cantiknya berkurang 1%, rugi banget gasii? maafin aku yah hiks hiks aku menyesal😭</p>
+    
+    <div class="btn-container">
+      <button id="noBtn" onmouseover="kabur()" onclick="kabur()" ontouchstart="kabur()">Gak Mau</button>
+      <button id="yesBtn" onclick="maafin()">Iya, Maafin</button>
+    </div>
+  </div>
+
+  <script>
+    function kabur() {
+      const noBtn = document.getElementById('noBtn');
+      
+      // Menghitung batas posisi aman di dalam layar HP/Laptop
+      const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+      const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+
+      const randomX = Math.max(10, Math.floor(Math.random() * maxX));
+      const randomY = Math.max(10, Math.floor(Math.random() * maxY));
+      
+      noBtn.style.position = 'fixed';
+      noBtn.style.left = randomX + 'px';
+      noBtn.style.top = randomY + 'px';
+      noBtn.style.zIndex = '999';
+    }
+
+    function maafin() {
+      // 1. Putar Musik
+      const music = document.getElementById('bgMusic');
+      music.play().catch(err => console.log("Audio play error:", err));
+
+      // 2. Ubah Teks dan Gambar GIF
+      document.getElementById('gif').src = "https://media1.giphy.com/media/v1.Y2lkPTZjMDliOTUyY3RuZmo5YWRuZDF4cmluYzBlNmhpNmdraGlsbzJqZnJhZjVqcWx4NiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IAbrtESCyrqLOMlWdx/giphy.gif";
+      document.getElementById('title').innerText = "HOREEEEE! makasihh saayanggg! 🥰";
+      document.getElementById('message').innerText = "janji deh gak bakal bikin kesel lagi eheheh, sekarang ayo baikan dan aku cinta kamu:3";
+      
+      // 3. Sembunyikan Tombol
+      document.querySelector('.btn-container').style.display = 'none';
+
+      // 4. Jalankan Efek Bunga Gugur
+      buatBungaGugur();
+    }
+
+    function buatBungaGugur() {
+      const bungaList = ['🌸', '🌹', '🌺', '🌷', '✨'];
+      
+      for (let i = 0; i < 35; i++) {
+        setTimeout(() => {
+          const flower = document.createElement('div');
+          flower.classList.add('flower');
+          flower.innerText = bungaList[Math.floor(Math.random() * bungaList.length)];
+          
+          // Posisi horizontal acak
+          flower.style.left = Math.random() * 100 + 'vw';
+          // Ukuran acak
+          flower.style.fontSize = (Math.random() * 20 + 20) + 'px';
+          // Durasi jatuh acak (antara 2.5 - 5 detik)
+          flower.style.animationDuration = (Math.random() * 2.5 + 2.5) + 's';
+          
+          document.body.appendChild(flower);
+
+          // Hapus elemen bunga setelah animasinya selesai
+          setTimeout(() => {
+            flower.remove();
+          }, 5000);
+        }, i * 120); // Jeda kemunculan tiap bunga
+      }
+    }
+  </script>
+
+</body>
+</html>
